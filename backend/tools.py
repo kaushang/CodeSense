@@ -7,8 +7,6 @@ import os
 
 load_dotenv()
 
-print("KEY:", os.getenv("GEMINI_API_KEY"))  # temporary debug
-
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
     temperature=0,
