@@ -1,25 +1,33 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from agent import run_agent
 
 app = FastAPI()
 
+ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+    "https://codesense-mocha.vercel.app",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "https://codesense-mocha.vercel.app",
-    ],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Content-Type", "Authorization"],
+    max_age=600,
 )
 
 class ReviewRequest(BaseModel):
     code: str
     language: str
     instruction: str
+
+@app.options("/review")
+async def options_review():
+    return JSONResponse(content={}, status_code=200)
 
 @app.post("/review")
 async def review_code(request: ReviewRequest):
