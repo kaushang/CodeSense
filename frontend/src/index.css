@@ -1,0 +1,83 @@
+@import "tailwindcss/preflight" layer(base);
+@import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@theme {
+  --spacing: 0.25rem;
+
+  --color-bg: #0a0a0a;
+  --color-surface: #111111;
+  --color-border: #1f1f1f;
+  --color-border-subtle: #171717;
+  --color-primary: #f0f0f0;
+  --color-secondary: #6b6b6b;
+  --color-tertiary: #3a3a3a;
+  --color-accent: #e8e8e8;
+  --color-green: #4ade80;
+  --color-yellow: #facc15;
+  --color-red: #f87171;
+
+  --font-sans: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 2px;
+}
+
+::selection {
+  background: rgba(240, 240, 240, 0.1);
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fadeslide {
+  animation: fadeSlideIn 0.3s ease both;
+}
+
+.animate-spin-slow {
+  animation: spin 0.8s linear infinite;
+}

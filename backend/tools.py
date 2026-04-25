@@ -1,0 +1,166 @@
+import json
+import re
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain.tools import tool
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+print("KEY:", os.getenv("GEMINI_API_KEY"))  # temporary debug
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    temperature=0,
+    google_api_key=os.getenv("GEMINI_API_KEY")
+)
+
+def clean_json(text: str) -> dict:
+    text = text.strip()
+    text = re.sub(r"^```(?:json)?", "", text).strip()
+    text = re.sub(r"```$", "", text).strip()
+    return json.loads(text)
+
+@tool
+def detect_bugs(input: str) -> str:
+    """Detects bugs in code. Input must be a JSON string with 'code' and 'language' keys."""
+    data = json.loads(input)
+    code, language = data["code"], data["language"]
+
+    prompt = f"""You are a bug detection tool. Analyze the following {language} code strictly for bugs.
+
+Look for: logical errors, off-by-one errors, null/undefined references, infinite loops, wrong conditions, unhandled exceptions.
+
+Return ONLY a raw JSON object with no markdown, no explanation, no code fences. Format:
+{{"severity": "clean" | "warning" | "critical", "issues": ["issue 1", "issue 2"]}}
+
+If no issues found, return: {{"severity": "clean", "issues": []}}
+
+Code:
+{code}"""
+
+    response = llm.invoke(prompt)
+    return response.content
+
+
+@tool
+def check_security(input: str) -> str:
+    """Checks code for security vulnerabilities. Input must be a JSON string with 'code' and 'language' keys."""
+    data = json.loads(input)
+    code, language = data["code"], data["language"]
+
+    prompt = f"""You are a security analysis tool. Analyze the following {language} code strictly for security vulnerabilities.
+
+Look for: SQL injection, hardcoded secrets or API keys, unsafe user input handling, insecure dependencies, exposed sensitive data.
+
+Return ONLY a raw JSON object with no markdown, no explanation, no code fences. Format:
+{{"severity": "clean" | "warning" | "critical", "issues": ["issue 1", "issue 2"]}}
+
+If no issues found, return: {{"severity": "clean", "issues": []}}
+
+Code:
+{code}"""
+
+    response = llm.invoke(prompt)
+    return response.content
+
+
+@tool
+def check_quality(input: str) -> str:
+    """Checks code quality. Input must be a JSON string with 'code' and 'language' keys."""
+    data = json.loads(input)
+    code, language = data["code"], data["language"]
+
+    prompt = f"""You are a code quality analysis tool. Analyze the following {language} code strictly for quality issues.
+
+Look for: poor naming conventions, redundant or dead code, missing error handling, overly complex logic, lack of comments on complex sections.
+
+Return ONLY a raw JSON object with no markdown, no explanation, no code fences. Format:
+{{"severity": "clean" | "warning" | "critical", "issues": ["issue 1", "issue 2"]}}
+
+If no issues found, return: {{"severity": "clean", "issues": []}}
+
+Code:
+{code}"""
+
+    response = llm.invoke(prompt)
+    return response.content
+
+
+@tool
+def explain_code(input: str) -> str:
+    """Explains what a piece of code does in plain English. Input must be a JSON string with 'code' and 'language' keys."""
+    data = json.loads(input)
+    code, language = data["code"], data["language"]
+
+    prompt = f"""You are a code explainer. Explain the following {language} code in simple plain English.
+
+Return ONLY a raw JSON object with no markdown, no explanation, no code fences. Format:
+{{
+  "tool": "explainer",
+  "summary": "one paragraph plain English explanation of what this code does",
+  "inputs": ["input1", "input2"],
+  "outputs": "what the code returns or produces",
+  "logic_steps": ["step 1", "step 2", "step 3"]
+}}
+
+Code:
+{code}"""
+
+    response = llm.invoke(prompt)
+    return response.content
+
+
+@tool
+def generate_tests(input: str) -> str:
+    """Generates unit test cases for code. Input must be a JSON string with 'code' and 'language' keys."""
+    data = json.loads(input)
+    code, language = data["code"], data["language"]
+
+    prompt = f"""You are a test case generator. Generate unit tests for the following {language} code.
+
+Cover normal cases, edge cases, and error cases. Write actual test code using the appropriate framework for {language}.
+
+Return ONLY a raw JSON object with no markdown, no explanation, no code fences. Format:
+{{
+  "tool": "test_generator",
+  "framework": "pytest or jest or junit depending on language",
+  "test_cases": [
+    {{
+      "name": "test case name",
+      "input": "input value",
+      "expected_output": "expected result",
+      "type": "normal or edge or error"
+    }}
+  ],
+  "test_code": "the full written test code as a single string with newlines as \\n"
+}}
+
+Code:
+{code}"""
+
+    response = llm.invoke(prompt)
+    return response.content
+
+
+@tool
+def refactor_code(input: str) -> str:
+    """Refactors code to be cleaner and more readable. Input must be a JSON string with 'code' and 'language' keys."""
+    data = json.loads(input)
+    code, language = data["code"], data["language"]
+
+    prompt = f"""You are a code refactoring expert. Suggest a cleaner, more readable rewritten version of the following {language} code.
+
+Return ONLY a raw JSON object with no markdown, no explanation, no code fences. Format:
+{{
+  "tool": "refactor",
+  "issues_found": ["issue 1", "issue 2"],
+  "refactored_code": "the full rewritten code as a single string with newlines as \\n",
+  "changes_made": ["change 1", "change 2"]
+}}
+
+Code:
+{code}"""
+
+    response = llm.invoke(prompt)
+    return response.content
