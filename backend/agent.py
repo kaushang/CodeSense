@@ -59,23 +59,27 @@ def run_agent(code: str, language: str, instruction: str) -> dict:
     print(f"\n[Agent] Instruction: {instruction}")
     print(f"[Agent] Language: {language}")
 
-    result = executor.invoke({
-        "code": code,
-        "language": language,
-        "instruction": instruction,
-    })
+    try:
+        result = executor.invoke({
+            "code": code,
+            "language": language,
+            "instruction": instruction,
+        })
+    except Exception as e:
+        print(f"[Agent] Executor error: {type(e).__name__}: {str(e)}")
+        raise
 
-    # Parse intermediate steps to extract which tools were called and their results
     tool_results = {}
     for step in result.get("intermediate_steps", []):
         action, observation = step
         tool_name = action.tool
+        print(f"[Agent] Raw observation from {tool_name}: {observation[:200]}")
         try:
             parsed = clean_json(observation)
-        except Exception:
+        except Exception as e:
+            print(f"[Agent] JSON parse error for {tool_name}: {e}")
             parsed = {"raw": observation}
 
-        # Map tool names to clean keys
         key_map = {
             "detect_bugs": "bugs",
             "check_security": "security",

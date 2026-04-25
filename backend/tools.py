@@ -15,9 +15,18 @@ llm = ChatGoogleGenerativeAI(
 
 def clean_json(text: str) -> dict:
     text = text.strip()
+    # Strip markdown code fences
     text = re.sub(r"^```(?:json)?", "", text).strip()
     text = re.sub(r"```$", "", text).strip()
-    return json.loads(text)
+    # Sometimes Gemini wraps in single backticks
+    text = re.sub(r"^`", "", text).strip()
+    text = re.sub(r"`$", "", text).strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError as e:
+        print(f"[Tools] JSON decode error: {e}")
+        print(f"[Tools] Raw text was: {text[:300]}")
+        raise
 
 @tool
 def detect_bugs(input: str) -> str:
