@@ -34,11 +34,11 @@ export default function App() {
   }
 
   return (
-    <div className="h-screen flex flex-col bg-bg overflow-hidden">
+    <div className="h-screen flex flex-col bg-bg overflow-hidden font-sans">
       {/* Header */}
-      <header className="h-12 border-b border-border flex items-center justify-between px-6 shrink-0">
-        <div className="flex items-center gap-2.5">
-          <div className="w-5 h-5 bg-primary rounded flex items-center justify-center">
+      <header className="border-b border-border flex items-center justify-between px-6 shrink-0">
+        <div className="flex items-center gap-3 py-3">
+          <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
             <svg
               width="11"
               height="11"
@@ -51,21 +51,16 @@ export default function App() {
               <polyline points="8 6 2 12 8 18" />
             </svg>
           </div>
-          <span className="text-sm font-semibold text-primary tracking-tight">
-            CodeSense
-          </span>
-          <span className="font-mono text-[9px] text-tertiary bg-border px-1.5 py-0.5 rounded-sm tracking-wider">
-            BETA
-          </span>
+          <span className="text-xl text-primary tracking-tight">CodeSense</span>
         </div>
-        <span className="font-mono text-[10px] text-tertiary">
+        <span className="font-mono text-sm text-gray-200">
           AI Code Assistant
         </span>
       </header>
 
       {/* Two column layout */}
-      <main className="flex-1 grid grid-cols-2 overflow-hidden">
-        <div className="border-r border-border overflow-hidden flex flex-col bg-surface">
+      <main className="flex-1 min-h-0 grid grid-cols-2 overflow-hidden">
+        <div className="border-r border-border overflow-hidden flex flex-col bg-surface min-h-0">
           <CodeInput
             code={code}
             language={language}
@@ -84,12 +79,12 @@ export default function App() {
 
       {/* Status bar */}
       <footer className="h-6 border-t border-border flex items-center px-5 gap-5 shrink-0">
-        {["LangChain Agent", "Gemini 2.5 Flash", "FastAPI"].map((label) => (
-          <div key={label} className="flex items-center gap-1.5">
-            <div className="w-1 h-1 rounded-full bg-green" />
-            <span className="font-mono text-[10px] text-tertiary">{label}</span>
-          </div>
-        ))}
+        <div className="flex items-center gap-1.5">
+          <div className="w-1 h-1 rounded-full bg-green" />
+          <span className="font-mono text-[10px] text-gray-200">
+            Powered by Gemini 2.5 Flash
+          </span>
+        </div>
       </footer>
     </div>
   );

@@ -1,5 +1,11 @@
 import ResultCard from "./ResultCard";
 
+type ReviewPanelProps = {
+  result?: Record<string, any>;
+  loading: boolean;
+  error?: string | null;
+};
+
 const TOOL_ORDER = [
   "bugs",
   "security",
@@ -9,7 +15,7 @@ const TOOL_ORDER = [
   "refactor",
 ];
 
-export default function ReviewPanel({ result, loading, error }) {
+export default function ReviewPanel({ result, loading, error }: ReviewPanelProps) {
   if (loading) {
     return (
       <div className="h-full flex flex-col items-center justify-center gap-3">
@@ -27,8 +33,8 @@ export default function ReviewPanel({ result, loading, error }) {
           </svg>
         </div>
         <div className="text-center">
-          <p className="text-[13px] text-secondary">Agent is thinking...</p>
-          <p className="text-[12px] text-tertiary mt-1">
+          <p className="text-md text-priamry">Agent is thinking...</p>
+          <p className="text-sm text-secondary">
             Selecting and running relevant tools
           </p>
         </div>
@@ -66,23 +72,11 @@ export default function ReviewPanel({ result, loading, error }) {
   if (!result) {
     return (
       <div className="h-full flex flex-col items-center justify-center gap-3 px-10">
-        <div className="w-10 h-10 border border-border rounded-lg flex items-center justify-center">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#3a3a3a"
-            strokeWidth="1.5"
-          >
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22" />
-          </svg>
-        </div>
         <div className="text-center">
-          <p className="text-[13px] text-secondary">
+          <p className="text-md text-gray-400/80">
             Paste code and give an instruction
           </p>
-          <p className="text-[12px] text-tertiary mt-1">
+          <p className="text-xs text-gray-400/80">
             The agent will decide which tools to run
           </p>
         </div>
@@ -100,29 +94,21 @@ export default function ReviewPanel({ result, loading, error }) {
   return (
     <div className="h-full flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-border shrink-0">
-        <div>
-          <p className="font-mono text-[10px] text-tertiary uppercase tracking-widest mb-1">
-            Tools Used
+      <div className="flex items-center px-5 py-3 border-b border-border shrink-0">
+        <div className="flex gap-2 items-center">
+          <p className="text-md text-primary pt-0.5">
+            Tools Used: 
           </p>
           <div className="flex items-center gap-1.5 flex-wrap">
             {toolsRan.map((key) => (
               <span
                 key={key}
-                className="font-mono text-[10px] text-secondary bg-bg border border-border rounded px-2 py-0.5"
+                className="text-xs text-primary bg-border border-secondary capitalize rounded px-1 py-0.5 pt-1"
               >
                 {key}
               </span>
             ))}
           </div>
-        </div>
-        <div className="flex flex-col items-end gap-1">
-          <p className="font-mono text-[10px] text-tertiary uppercase tracking-widest">
-            Ran
-          </p>
-          <p className="font-mono text-xl font-medium text-primary leading-none">
-            {toolsRan.length}
-          </p>
         </div>
       </div>
 
