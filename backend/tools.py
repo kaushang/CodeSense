@@ -3,10 +3,15 @@ import re
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.tools import tool
 from dotenv import load_dotenv
+import os
 
 load_dotenv()
 
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+llm = ChatGoogleGenerativeAI(
+    model="gemini-2.5-flash",
+    temperature=0,
+    google_api_key=os.getenv("GOOGLE_API_KEY")
+)
 
 def clean_json(text: str) -> dict:
     text = text.strip()

@@ -12,7 +12,7 @@ load_dotenv()
 llm = ChatGoogleGenerativeAI(
     model="gemini-2.5-flash",
     temperature=0,
-    google_api_key=os.getenv("GEMINI_API_KEY")
+    google_api_key=os.getenv("GOOGLE_API_KEY")
 )
 
 tools = [detect_bugs, check_security, check_quality, explain_code, generate_tests, refactor_code]
