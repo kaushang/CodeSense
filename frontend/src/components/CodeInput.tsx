@@ -113,10 +113,10 @@ const handleCodeChange = (value: string) => {
 
       {/* Bottom panel */}
       <div className="border-t border-border px-4 py-3 shrink-0">
-        <div className="flex flex-col lg:flex-row items-start gap-4">
-          <div className="flex-1 min-w-0">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 gap-1 mb-2">
-              <span className="text-lg text-gray-200 font-sans">Instruction</span>
+        <div className="flex flex-col lg:flex-row items-stretch lg:items-start gap-4">
+          <div className="w-full lg:flex-1 min-w-0">
+            <div className="flex flex-row items-center sm:gap-2 gap-1 mb-2">
+              <span className="text-lg text-gray-200 font-sans">Instructions</span>
               <span className="text-xs text-red/60">(required)</span>
             </div>
 

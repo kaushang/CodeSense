@@ -76,7 +76,7 @@ export default function App() {
   return (
     <div className="h-screen flex flex-col bg-bg overflow-hidden font-sans">
       {/* Header */}
-      <header className="border-b border-border flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-3 gap-2 shrink-0">
+      <header className="border-b border-border flex flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-3  shrink-0">
         <div className="flex items-center gap-3">
           <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
             <svg
@@ -93,7 +93,7 @@ export default function App() {
           </div>
           <span className="text-xl text-primary tracking-tight">CodeSense</span>
         </div>
-        <span className="font-mono text-sm text-gray-200">AI Code Assistant</span>
+        <span className="font-mono text-md text-gray-200 ">Code Assistant Agent</span>
       </header>
 
       {/* Mobile tabbed layout */}
