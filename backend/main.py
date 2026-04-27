@@ -8,6 +8,7 @@ app = FastAPI()
 
 ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://www.codesenseai.online",
     "https://codesense-mocha.vercel.app",
 ]
 
