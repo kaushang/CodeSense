@@ -197,8 +197,8 @@ function TestGeneratorCard({ index, data }) {
         {data.test_cases?.length > 0 && (
           <div>
             <p className="text-md text-primary mb-2">Test Cases</p>
-            <div className="border border-border rounded">
-              <div className="grid grid-cols-[3fr_3fr_1fr] bg-bg px-3 py-2 border-b border-border">
+            <div className="overflow-x-auto border border-border rounded">
+              <div className="min-w-[540px] grid grid-cols-[3fr_3fr_1fr] bg-bg px-3 py-2 border-b border-border">
                 <span className="text-sm text-secondary uppercase tracking-wider">
                   Name
                 </span>
@@ -212,12 +212,12 @@ function TestGeneratorCard({ index, data }) {
               {data.test_cases.map((tc, i) => (
                 <div
                   key={i}
-                  className={`grid grid-cols-[3fr_3fr_1fr] px-3 py-2 items-center ${i < data.test_cases.length - 1 ? "border-b border-border-subtle" : ""}`}
+                  className={`min-w-[540px] grid grid-cols-[3fr_3fr_1fr] px-3 py-2 items-center ${i < data.test_cases.length - 1 ? "border-b border-border-subtle" : ""}`}
                 >
                   <span className="text-sm text-secondary pr-2 truncate">
                     {tc.name}
                   </span>
-                  <span className="text-sm text-secondary pr-2 truncate  ">
+                  <span className="text-sm text-secondary pr-2 truncate">
                     {tc.expected_output}
                   </span>
                   <span

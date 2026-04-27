@@ -94,21 +94,17 @@ export default function ReviewPanel({ result, loading, error }: ReviewPanelProps
   return (
     <div className="h-full flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center px-5 py-3 border-b border-border shrink-0">
-        <div className="flex gap-2 items-center">
-          <p className="text-md text-primary pt-0.5">
-            Tools Used: 
-          </p>
-          <div className="flex items-center gap-1.5 flex-wrap">
-            {toolsRan.map((key) => (
-              <span
-                key={key}
-                className="text-xs text-primary bg-border border-secondary capitalize rounded px-1 py-0.5 pt-1"
-              >
-                {key}
-              </span>
-            ))}
-          </div>
+      <div className="flex flex-col sm:flex-row sm:items-center px-4 sm:px-5 py-3 border-b border-border shrink-0 gap-3">
+        <p className="text-md text-primary pt-0.5">Tools Used:</p>
+        <div className="flex items-center gap-1.5 flex-wrap">
+          {toolsRan.map((key) => (
+            <span
+              key={key}
+              className="text-xs text-primary bg-border border-secondary capitalize rounded px-1 py-0.5 pt-1"
+            >
+              {key}
+            </span>
+          ))}
         </div>
       </div>
 

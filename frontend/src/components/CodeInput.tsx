@@ -71,14 +71,14 @@ const handleCodeChange = (value: string) => {
   return (
     <div className="flex flex-col h-full min-h-0">
       {/* Toolbar */}
-      <div className="flex items-center justify-between px-5 py-3 border-b border-border shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between px-4 py-3 border-b border-border shrink-0 gap-3">
         <div className="flex items-center gap-2">
           <span className="text-md text-gray-200">Language:</span>
 
           <select
             value={language}
             onChange={(e) => onLanguageChange(e.target.value)}
-            className="bg-bg border border-border rounded text-primary   text-[11px] px-2 py-1 outline-none cursor-pointer appearance-none pr-5"
+            className="bg-bg border border-border rounded text-primary text-[11px] px-2 py-1 outline-none cursor-pointer appearance-none pr-5"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b6b6b' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
               backgroundRepeat: "no-repeat",
@@ -115,11 +115,9 @@ const handleCodeChange = (value: string) => {
       <div className="border-t border-border px-4 py-3 shrink-0">
         <div className="flex flex-col lg:flex-row items-start gap-4">
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-2">
-              <span className="text-lg text-gray-200 font-sans">
-                Instruction
-              </span>
-              <span className="  text-xs text-red/60">(required)</span>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:gap-2 gap-1 mb-2">
+              <span className="text-lg text-gray-200 font-sans">Instruction</span>
+              <span className="text-xs text-red/60">(required)</span>
             </div>
 
             <input
@@ -135,7 +133,7 @@ const handleCodeChange = (value: string) => {
           <button
             onClick={onSubmit}
             disabled={disabled}
-            className={`flex items-center gap-2 px-4 py-2 rounded text-md font-medium mt-auto transition-all duration-150 ${
+            className={`w-full lg:w-auto flex items-center justify-center lg:mt-auto gap-2 px-4 py-2 rounded text-md font-medium transition-all duration-150 ${
               disabled
                 ? "bg-secondary text-tertiary cursor-not-allowed"
                 : "bg-primary text-bg cursor-pointer hover:bg-accent"
