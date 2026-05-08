@@ -78,18 +78,8 @@ export default function App() {
       {/* Header */}
       <header className="border-b border-border flex flex-row items-start sm:items-center justify-between px-4 sm:px-6 py-3  shrink-0">
         <div className="flex items-center gap-3">
-          <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-            <svg
-              width="11"
-              height="11"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#0a0a0a"
-              strokeWidth="2.5"
-            >
-              <polyline points="16 18 22 12 16 6" />
-              <polyline points="8 6 2 12 8 18" />
-            </svg>
+          <div className="w-6 h-6 flex items-center justify-center">
+            <img src="./code-white.png" alt="" />
           </div>
           <span className="text-xl text-primary tracking-tight">CodeSense</span>
         </div>
